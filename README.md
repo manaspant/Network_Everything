@@ -1,4 +1,4 @@
-# Network_Everything_Manas
+# Network Everything 
 Repository for Network Everything Class
 
 ## Blog
