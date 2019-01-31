@@ -1,6 +1,8 @@
 # Network_Everything_Manas
 Repository for Network Everything Class
 
+## Blog
+  
 ### Reaction to Linked Chapter 1 - 3
 
 I wasn't expecting the first two chapters to be about social networks. I thought since the class is about wifi and bluetooth, the reading will start ona similar note. I was pleasantly surprised to read about some of these concepts that I think would traditionally be considered a part of the social sciences.  
