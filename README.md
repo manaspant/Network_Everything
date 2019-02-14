@@ -1,5 +1,7 @@
 # Network Everything 
-Repository for Network Everything Class
+
+This course explores the possibilities and challenges of designing alternate physical network inter-faces. Through weekly readings, class discussions, and a series of projects, students will create physical objects that talk to each other over distance. Various wireless communication mechanisms such as radio (Bluetooth, Zigbee, WiFi, and raw), infrared, and ultrasonic are used in the context of creating novel “smart” devices. Topics of discussion in this course include networking protocols and network topologies; network time versus physical time; mobile objects; and wireless networks. Opportunities to build collaborative and creative campus-wide networked projects and systems will also be explored.
+
 
 ## Blog
   
