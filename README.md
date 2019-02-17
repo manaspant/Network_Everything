@@ -24,4 +24,9 @@ The extreme story of the woman who could not shoot the intruder in her house bec
 ### My hypothetical IoT
 
 I was trying to think of something absolutely ridiculous to connect to the internet as an IoT device. However while reading the book for the class, I had an interesting idea. Making IoT books. This idea also seems liks an addition to the Internet of way too many things. I will, however, continue to show what the project will look like. 
+The device will have different 'uses'. For people that do not want to use ebook readers or kindles, it will offer some reading statistics like speed of reading, time taken etc. 
+In educational settings, it will keep a track of students' reading. For instance, Professors will be able to keep track of wther or not the students are reading. The device will do this based on the time spent by the student on each page. 
 
+UI: The UI of the device will be very simple. It will be like a stick on device that you attach to the back of any book that you are reading. It will be lightweight and thin to not protrude out of the book too much. It wont have a screen. It will look like a clean strip of paper to someone looking from a distance. 
+
+Interusability: The device will rank high in interusability because all you need to do is stick it to a different book whenever you are done with the one that you are reading. Thus it can be used with multiple books. Since the device is connected to the app that is on your phone, the app would not have to change with the book. 
