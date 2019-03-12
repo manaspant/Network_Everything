@@ -13,3 +13,8 @@ app.use(express.static('public'));  // find pages in public directory
 server.listen(PORT, () => {
   console.log(`Server running at http://${hostname}:${PORT}/`);
 })
+
+
+// function sendAlert()
+
+// send email to user once a person comes within 4 cms of the device. 
