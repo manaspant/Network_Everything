@@ -30,3 +30,18 @@ In educational settings, it will keep a track of students' reading. For instance
 UI: The UI of the device will be very simple. It will be like a stick on device that you attach to the back of any book that you are reading. It will be lightweight and thin to not protrude out of the book too much. It wont have a screen. It will look like a clean strip of paper to someone looking from a distance. 
 
 Interusability: The device will rank high in interusability because all you need to do is stick it to a different book whenever you are done with the one that you are reading. Thus it can be used with multiple books. Since the device is connected to the app that is on your phone, the app would not have to change with the book. 
+
+
+### Final Project Idea
+
+My final project idea is to make a hardware notification system for social media. The project is a satirical take on the state of social media usage these days. As if notifications on the mobile phone were not enough, this project takes it to a new level by notifying people about updates on a hardware device. So whenever you get a message or a notification or whenever a hashtag is trencing you will get a 'physical' notifcation.
+
+#### Technical background
+
+The aim is to use an API from a leading social media platform such as twitter or Facebook and get data from it. Based on the social media platform that I end up chossing finally, I will work on finding the notification or the aspect of that platform that I want to alert people to. So for instance, if I use Twitter, Ill decide whether I want to work with the trending hashtag or a celebrity tweet that people should be aware about. 
+The hardware will most probably use a combination of DC motors that will create a physical effect that I am still deciding on. Some of the ideas that I have right now include:
+1) A hand waving
+2) A heart rate monitor output
+3) A dopamine spike
+
+
