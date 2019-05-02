@@ -44,4 +44,6 @@ The hardware will most probably use a combination of DC motors that will create 
 2) A heart rate monitor output
 3) A dopamine spike
 
+![alt text](https://github.com/manaspant/Network_Everything/blob/master/IMG_5987.jpg)
+
 
