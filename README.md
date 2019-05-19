@@ -55,3 +55,4 @@ I made a Portable News Predictor Game. The user has to guess what the latest New
 
 The idea behind the game is a satirical take on the amount of times people check the news for updates these days. Since news channels have released mobile applications for people to keep reading the latest news, people have been checking their phones very frequently to see if there is a news update. They are probably checking the news to a point where they can probably guess what the latest news article is about. Of course, they cant actually guess it but that is the underlying message behind this game. Since the box is technically portable, a user can carry the box anywhere and keep guessing whether or not they have guessed the category right. 
 
+The box is getting data directly from NYT's API that gives it live data on whatever the latest story is. Hence, whenever the user checks, the story will be different after a point. 
