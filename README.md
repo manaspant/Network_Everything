@@ -47,3 +47,11 @@ The hardware will most probably use a combination of DC motors that will create 
 ![alt text](https://github.com/manaspant/Network_Everything/blob/master/IMG_5987.jpg)
 
 
+## Final Project Documentation
+
+### Overall Project Concept and Description 
+
+I made a Portable News Predictor Game. The user has to guess what the latest New York Times article or story could be about. There are four categories on the box: World Politics, U.S. Politics, Op-Eds and Other stories.
+
+The idea behind the game is a satirical take on the amount of times people check the news for updates these days. Since news channels have released mobile applications for people to keep reading the latest news, people have been checking their phones very frequently to see if there is a news update. They are probably checking the news to a point where they can probably guess what the latest news article is about. Of course, they cant actually guess it but that is the underlying message behind this game. Since the box is technically portable, a user can carry the box anywhere and keep guessing whether or not they have guessed the category right. 
+
