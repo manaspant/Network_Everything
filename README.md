@@ -67,8 +67,10 @@ The box is getting data directly from NYT's API that gives it live data on whate
 
 #### Web Server
 
-The first aspect of the project is the web side of the project. I am using the NY Times API to get the latest data from the website. My server gets the latest data each time the webpage is refreshed. So, when the user starts the game, the first thing that takes place is that I get the latest article from the API. That latest article is then sent to the aruino via the server.js. Based on what category the article falls into the message sent to the arduino has a number that is attached to it. Each number corresponds to a category that the arduino will read. 
+The first aspect of the project is the web side of the project. I am using the NY Times API to get the latest data from the website. My server gets the latest data each time the webpage is refreshed. So, when the user starts the game, the first thing that takes place is that I get the latest article from the API. That latest article is then sent to the aruino via the server.js. Based on what category the article falls into the message sent to the arduino has a number that is attached to it. Each number corresponds to a category that the arduino will read.
+
+The NY Times API is connected to my webpage using AJAX. 
 
 #### Arduino
 
-Once the arduino gets the data from the server.js, it stores the answer based on what category it falls under. After that, the loop waits for the button to be pressed. The four buttons on the box correspond to different options in that the user can choose. Once the button is pressed, if the category number matches the button pressed, then the answer is right and the Green LED switches on. If the answer is incorrect, the Red LED switches on.
+Once the arduino gets the data from the server.js, it stores the answer based on what category it falls under. After that, the loop waits for the button to be pressed. The four buttons on the box correspond to different options  that the user can choose. Once the button is pressed, if the category number matches the button pressed, then the answer is right and the Green LED switches on. If the answer is incorrect, the Red LED switches on.
