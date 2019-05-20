@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width">
+		<title>Ny Times</title> 
+		<script src="/socket.io/socket.io.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="shortcut icon" href="#" />
+	</head>
+	<body>
+		<header>
+			<h1>Predict the latest story by NY Times</h1>
+		</header>
+		<br>
+		<br>
+		<br>
+
+		<main>
+			<h3>
+				<br>
+				<br>
+				<br>
+				<div id="instructions1">
+				<ul>
+					<li>Choose one of the 4 possible categories of the next NY Times Article</li>
+					<br>
+					<li>The Categories are on the box</li>
+					<br>
+					<li>Press "Start New Game" when ready</li>
+				</ul>					
+				</div>
+				<div id="instructions2">
+				<ul>
+					<li>Wait for the Blue light to turn on</li>
+					<br>
+					<li>Once the light is Blue, press one of the 4 buttons on the box to choose answer</li>
+					<br>
+					<br>
+					<br>
+					<li>If you answer correctly, the green light will switch on.</li>
+					<br>
+					<li>If you didn't, the red light will switch on.</li>
+				</ul>	
+				</div>
+			</h3>
+			<h2><div id="title-article"></div></h2>
+			<br>
+			<h3><div id="section-name"></div></h3>
+			<br>
+			<a href="" id="url"><div id="url-article"></div></a>
+			<br>
+			<br>
+			<div id="buttton">
+				<button value= "Refresh Page" onClick="startNew();" id="play-button"> Start New Game </button>
+			</div>
+		</main>
+		<script src="jquery-2.1.1.js"></script>
+		<script src="scripts.js"></script>
+		
+	</body>
+</html>
