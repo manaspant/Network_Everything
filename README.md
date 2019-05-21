@@ -70,6 +70,10 @@ The box is getting data directly from NYT's API that gives it live data on whate
 
 ![alt text](https://github.com/manaspant/Network_Everything/blob/master/Screen%20Shot%202019-05-21%20at%202.35.37%20PM.png)
 
+### Schematic 
+
+![alt text](https://github.com/manaspant/Network_Everything/blob/master/Screen%20Shot%202019-05-21%20at%205.13.17%20PM.png)
+
 ### List of Parts
 
 5 buttons, 4 LEDs, 1 acrylic box.
