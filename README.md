@@ -61,6 +61,8 @@ The box is getting data directly from NYT's API that gives it live data on whate
 
 ![alt text](https://github.com/manaspant/Network_Everything/blob/master/WhatsApp%20Image%202019-05-21%20at%202.05.01%20PM.jpeg)
 
+![alt text](https://github.com/manaspant/Network_Everything/blob/master/WhatsApp%20Image%202019-05-21%20at%202.05.01%20PM%20(2).jpeg)
+
 ### List of Parts
 
 5 buttons, 4 LEDs, 1 acrylic box.
