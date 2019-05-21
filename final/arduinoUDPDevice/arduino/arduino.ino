@@ -10,7 +10,7 @@
   Some code and wiring inspired by http://en.wikiversity.org/wiki/User:Dstaub/robotcar
 */
 
-// variables to save pins for different button options 
+// variables to save pins for different button options
 
 int buttonPin_World = 6;
 int buttonPin_US = 7;
@@ -18,7 +18,7 @@ int buttonPin_NY = 8;
 int buttonPin_GameStart = 9;
 int buttonPin_Other = 10;
 
-// game condition variables 
+// game condition variables
 
 bool winCondition = false;
 bool readyGame = false;
@@ -201,7 +201,7 @@ void loop() {
 
   buttonState_GameStart = digitalRead(buttonPin_GameStart);
 
-// Inform server.js that start new game has been pressed
+  // Inform server.js that start new game has been pressed
 
   if (buttonState_GameStart == 1 && GameStart == false) {
 
@@ -213,14 +213,14 @@ void loop() {
     Udp.endPacket();
   }
 
-// reading buttons
+  // reading buttons
 
   buttonState_World = digitalRead(buttonPin_World);
   buttonState_US = digitalRead(buttonPin_US);
   buttonState_Other = digitalRead(buttonPin_Other);
   buttonState_NY = digitalRead(buttonPin_NY);
 
-// Check if the answer is correct if the packetresponse corresponds to the right button press
+  // Check if the answer is correct if the packetresponse corresponds to the right button press
 
   if (buttonState_World == HIGH && readyGame == true && winCondition == false) {  // This is where the LED On/Off happens
 
@@ -229,7 +229,7 @@ void loop() {
       Serial.println("YOU GOT IT!");
       winCondition = true;
       digitalWrite(pin_win, HIGH);
-      
+
       // switch on Green light since answer correct
     }
 
@@ -252,10 +252,10 @@ void loop() {
     winCondition = false;
 
 
-    // inform server.js that the user has answered 
+    // inform server.js that the user has answered
   }
 
-// Check if the answer is correct if the packetresponse corresponds to the right button press
+  // Check if the answer is correct if the packetresponse corresponds to the right button press
 
   if (buttonState_US == HIGH && readyGame == true && winCondition == false) {  // This is where the LED On/Off happens
 
@@ -285,7 +285,7 @@ void loop() {
     Udp.endPacket();
     winCondition = false;
 
-    // inform server.js that the user has answered 
+    // inform server.js that the user has answered
 
   }
 
@@ -320,10 +320,10 @@ void loop() {
     Udp.endPacket();
     winCondition = false;
 
-    // inform server.js that the user has answered 
+    // inform server.js that the user has answered
   }
 
-// Check if the answer is correct if the packetresponse corresponds to the right button press
+  // Check if the answer is correct if the packetresponse corresponds to the right button press
 
   if (buttonState_Other == HIGH && readyGame == true && winCondition == false) {  // This is where the LED On/Off happens
 
@@ -352,7 +352,7 @@ void loop() {
     Udp.endPacket();
     winCondition = false;
 
-    // inform server.js that the user has answered 
+    // inform server.js that the user has answered
 
   }
 
