@@ -10,21 +10,31 @@
   Some code and wiring inspired by http://en.wikiversity.org/wiki/User:Dstaub/robotcar
 */
 
+// variables to save pins for different button options 
+
 int buttonPin_World = 6;
 int buttonPin_US = 7;
 int buttonPin_NY = 8;
 int buttonPin_GameStart = 9;
 int buttonPin_Other = 10;
 
+// game condition variables 
+
 bool winCondition = false;
 bool readyGame = false;
 bool GameStart = false;
 
+// save response from server
+
 int packetResponse;
+
+// LED pins
 
 int pin_win = 5;
 int pin_lose = 4;
 int pin_play = 3;
+
+// User options buttons state
 
 int buttonState_World = 0;
 int buttonState_US = 0;
@@ -137,7 +147,7 @@ void loop() {
 
     packetResponse = (int)packetBuffer[0];  // value of server message
 
-    if (packetResponse == 1) {  // This is where the LED On/Off happens
+    if (packetResponse == 1) {  // Checking what category the article falls under
 
       Serial.println("The article is about World");
       readyGame = true;
@@ -145,7 +155,7 @@ void loop() {
 
     }
 
-    if (packetResponse == 2) {  // This is where the LED On/Off happens
+    if (packetResponse == 2) {  // Checking what category the article falls under
 
       Serial.println("The article is about US");
       readyGame = true;
@@ -153,7 +163,7 @@ void loop() {
 
     }
 
-    if (packetResponse == 3) {  // This is where the LED On/Off happens
+    if (packetResponse == 3) {  // Checking what category the article falls under
 
       Serial.println("The article is about opinion");
       readyGame = true;
@@ -161,7 +171,7 @@ void loop() {
 
     }
 
-    if (packetResponse == 4) {  // This is where the LED On/Off happens
+    if (packetResponse == 4) {  // Checking whether the start new game button has been pressed on the webpage. Will reset variables if TRUE
 
       Serial.println("Reset game!!!!");
       winCondition = false;
@@ -174,7 +184,7 @@ void loop() {
 
     }
 
-    if (packetResponse == 5) {  // This is where the LED On/Off happens
+    if (packetResponse == 5) {  // Checking what category the article falls under
 
       Serial.println("The article is about other stuff");
       readyGame = true;
@@ -191,6 +201,8 @@ void loop() {
 
   buttonState_GameStart = digitalRead(buttonPin_GameStart);
 
+// Inform server.js that start new game has been pressed
+
   if (buttonState_GameStart == 1 && GameStart == false) {
 
     Serial.println("Starting Game");
@@ -201,10 +213,14 @@ void loop() {
     Udp.endPacket();
   }
 
+// reading buttons
+
   buttonState_World = digitalRead(buttonPin_World);
   buttonState_US = digitalRead(buttonPin_US);
   buttonState_Other = digitalRead(buttonPin_Other);
   buttonState_NY = digitalRead(buttonPin_NY);
+
+// Check if the answer is correct if the packetresponse corresponds to the right button press
 
   if (buttonState_World == HIGH && readyGame == true && winCondition == false) {  // This is where the LED On/Off happens
 
@@ -213,6 +229,8 @@ void loop() {
       Serial.println("YOU GOT IT!");
       winCondition = true;
       digitalWrite(pin_win, HIGH);
+      
+      // switch on Green light since answer correct
     }
 
     if (packetResponse != 1) {
@@ -220,6 +238,8 @@ void loop() {
       Serial.println("YOU LOST IT!");
       winCondition = true;
       digitalWrite(pin_lose, HIGH);
+
+      // switch on Red light since answer incorrect
     }
 
     readyGame = false;
@@ -230,7 +250,12 @@ void loop() {
     Udp.write(2);
     Udp.endPacket();
     winCondition = false;
+
+
+    // inform server.js that the user has answered 
   }
+
+// Check if the answer is correct if the packetresponse corresponds to the right button press
 
   if (buttonState_US == HIGH && readyGame == true && winCondition == false) {  // This is where the LED On/Off happens
 
@@ -239,6 +264,8 @@ void loop() {
       Serial.println("YOU GOT IT!");
       winCondition = true;
       digitalWrite(pin_win, HIGH);
+
+      // switch on Green light since answer correct
     }
 
     if (packetResponse != 2) {
@@ -246,6 +273,8 @@ void loop() {
       Serial.println("YOU LOST IT!");
       winCondition = true;
       digitalWrite(pin_lose, HIGH);
+
+      // switch on Red light since answer incorrect
     }
 
     readyGame = false;
@@ -256,7 +285,11 @@ void loop() {
     Udp.endPacket();
     winCondition = false;
 
+    // inform server.js that the user has answered 
+
   }
+
+  // Check if the answer is correct if the packetresponse corresponds to the right button press
 
   if (buttonState_NY == HIGH && readyGame == true && winCondition == false) {  // This is where the LED On/Off happens
 
@@ -267,12 +300,16 @@ void loop() {
       Serial.println("YOU GOT IT!");
       winCondition = true;
       digitalWrite(pin_win, HIGH);
+
+      // switch on Green light since answer correct
     }
     if (packetResponse != 3) {
       digitalWrite(pin_play, LOW);
       Serial.println("YOU LOST IT!");
       winCondition = true;
       digitalWrite(pin_lose, HIGH);
+
+      // switch on Red light since answer incorrect
     }
 
     readyGame = false;
@@ -282,29 +319,11 @@ void loop() {
     Udp.write(2);
     Udp.endPacket();
     winCondition = false;
+
+    // inform server.js that the user has answered 
   }
 
-
-  //  if (buttonState_Other == HIGH && readyGame == true && winCondition == false) {  // This is where the LED On/Off happens
-  //
-  //    if (packetResponse == 4) {
-  //      Serial.println("YOU GOT IT!");
-  //      winCondition = true;
-  //    }
-  //    if (packetResponse != 4) {
-  //      Serial.println("YOU LOST IT!");
-  //      winCondition = true;
-  //    }
-  //
-  //    readyGame = false;
-  //
-  //    Serial.println("Telling server about your result");
-  //    Udp.beginPacket(receivingDeviceAddress, receivingDevicePort);
-  //    Udp.write(2);
-  //    Udp.endPacket();
-  //    winCondition = false;
-  //  }
-
+// Check if the answer is correct if the packetresponse corresponds to the right button press
 
   if (buttonState_Other == HIGH && readyGame == true && winCondition == false) {  // This is where the LED On/Off happens
 
@@ -313,12 +332,16 @@ void loop() {
       Serial.println("YOU GOT IT!");
       winCondition = true;
       digitalWrite(pin_win, HIGH);
+
+      // switch on Green light since answer correct
     }
     if (packetResponse != 5) {
       digitalWrite(pin_play, LOW);
       Serial.println("YOU LOST IT!");
       winCondition = true;
       digitalWrite(pin_lose, HIGH);
+
+      // switch on Red light since answer incorrect
     }
 
     readyGame = false;
@@ -328,6 +351,8 @@ void loop() {
     Udp.write(2);
     Udp.endPacket();
     winCondition = false;
+
+    // inform server.js that the user has answered 
 
   }
 
