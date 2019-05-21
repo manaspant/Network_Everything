@@ -71,9 +71,6 @@ The box is getting data directly from NYT's API that gives it live data on whate
 
 5 buttons, 4 LEDs, 1 acrylic box.
 
-### Project Details 
-
-
 ### Pictures of Electronics
 
 
@@ -85,6 +82,8 @@ The box is getting data directly from NYT's API that gives it live data on whate
 
 ![alt text](https://github.com/manaspant/Network_Everything/blob/master/WhatsApp%20Image%202019-05-21%20at%202.42.09%20PM.jpeg)
 
+### Project Details 
+
 #### Web Server
 
 The first aspect of the project is the web side of the project. I am using the NY Times API to get the latest data from the website. My server gets the latest data each time the webpage is refreshed. So, when the user starts the game, the first thing that takes place is that I get the latest article from the API. That latest article is then sent to the aruino via the server.js. Based on what category the article falls into the message sent to the arduino has a number that is attached to it. Each number corresponds to a category that the arduino will read.
@@ -94,3 +93,10 @@ The NY Times API is connected to my webpage using AJAX.
 #### Arduino
 
 Once the arduino gets the data from the server.js, it stores the answer based on what category it falls under. After that, the loop waits for the button to be pressed. The four buttons on the box correspond to different options  that the user can choose. Once the button is pressed, if the category number matches the button pressed, then the answer is right and the Green LED switches on. If the answer is incorrect, the Red LED switches on.
+
+### Challenges
+
+The challenge for me was to make the box a self-sufficient independant hardware piece. I wanted the box to be able to fulfill its purpose without the constant need of the laptop to restart the arduino so that the game can be run again.
+
+Due to this I had to create an entire game logic where you can keep playing the game without any laptop around you. The lights will indicate a win or lose situation and there is a start new game button on the box. So basically, the user can carry it anywhere and keep guessing the news. 
+For the showcase since there were a lot of users, I had to modify the game in order for people to play every 10 seconds and still get different news articles. For that, I saved the 20 most recent news articles and made it random so that people can experience the game. The news articles on NYT website do not refresh quick enough for everybody in the showcase to experience a different result. 
