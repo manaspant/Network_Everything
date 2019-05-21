@@ -57,6 +57,10 @@ The idea behind the game is a satirical take on the amount of times people check
 
 The box is getting data directly from NYT's API that gives it live data on whatever the latest story is. Hence, whenever the user checks, the story will be different after a point of time. 
 
+### System Diagram
+
+![alt text](https://github.com/manaspant/Network_Everything/blob/master/Screen%20Shot%202019-05-21%20at%202.35.37%20PM.png)
+
 ### Overall Pictures
 
 ![alt text](https://github.com/manaspant/Network_Everything/blob/master/WhatsApp%20Image%202019-05-21%20at%202.05.01%20PM.jpeg)
