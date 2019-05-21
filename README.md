@@ -73,6 +73,18 @@ The box is getting data directly from NYT's API that gives it live data on whate
 
 ### Project Details 
 
+
+### Pictures of Electronics
+
+
+![alt text](https://github.com/manaspant/Network_Everything/blob/master/WhatsApp%20Image%202019-05-21%20at%202.42.11%20PM.jpeg)
+
+![alt text](https://github.com/manaspant/Network_Everything/blob/master/WhatsApp%20Image%202019-05-21%20at%202.42.11%20PM%20(1).jpeg)
+
+![alt text](https://github.com/manaspant/Network_Everything/blob/master/WhatsApp%20Image%202019-05-21%20at%202.42.10%20PM.jpeg)
+
+![alt text](https://github.com/manaspant/Network_Everything/blob/master/WhatsApp%20Image%202019-05-21%20at%202.42.09%20PM.jpeg)
+
 #### Web Server
 
 The first aspect of the project is the web side of the project. I am using the NY Times API to get the latest data from the website. My server gets the latest data each time the webpage is refreshed. So, when the user starts the game, the first thing that takes place is that I get the latest article from the API. That latest article is then sent to the aruino via the server.js. Based on what category the article falls into the message sent to the arduino has a number that is attached to it. Each number corresponds to a category that the arduino will read.
