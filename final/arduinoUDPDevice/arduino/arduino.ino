@@ -10,19 +10,55 @@
   Some code and wiring inspired by http://en.wikiversity.org/wiki/User:Dstaub/robotcar
 */
 
-#define trigPin 6
-#define echoPin 7
-#define led 1
-#define led2 0
+int buttonPin_World = 6;
+int buttonPin_US = 7;
+int buttonPin_NY = 8;
+int buttonPin_GameStart = 9;
+int buttonPin_Other = 10;
+
+bool winCondition = false;
+bool readyGame = false;
+bool GameStart = false;
+
+int packetResponse;
+
+int pin_win = 5;
+int pin_lose = 4;
+int pin_play = 3;
+
+int buttonState_World = 0;
+int buttonState_US = 0;
+int buttonState_NY = 0;
+int buttonState_GameStart = 0;
+int buttonState_Other = 0;
 
 #include <SPI.h>
 #include <WiFiNINA.h>
 #include <WiFiUdp.h>
 
+void printWiFiStatus() {
+  // print the SSID of the network you're attached to:
+  Serial.print("SSID: ");
+  Serial.println(WiFi.SSID());
+
+  // print your WiFi shield's IP address:
+  IPAddress ip = WiFi.localIP();
+  Serial.print("My IP Address: ");
+  Serial.println(ip);
+
+  // print the received signal strength:
+  long rssi = WiFi.RSSI();
+  Serial.print("signal strength (RSSI):");
+  Serial.print(rssi);
+  Serial.println(" dBm");
+}
 
 int status = WL_IDLE_STATUS;
+
 #include "arduino_secrets.h"
-///////please enter your sensitive data in the Secret tab/arduino_secrets.h
+
+//please enter your sensitive data in the Secret tab/arduino_secrets.h
+
 char ssid[] = SECRET_SSID;        // your network SSID (name)
 char pass[] = SECRET_PASS;    // your network password (use for WPA, or use as key for WEP)
 int keyIndex = 0;            // your network key Index number (needed only for WEP)
@@ -33,30 +69,27 @@ char packetBuffer[255]; //buffer to hold incoming packet
 
 WiFiUDP Udp;
 
-#define trigPin 6
-#define echoPin 7
-
-#define led 1
-#define led2 0
-
-int ultraState = 1;
-String ultrastate = "hi";
-
 void setup() {
 
-  Serial.begin (9600);
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  pinMode(led, OUTPUT);
-  pinMode(led2, OUTPUT);
-  pinMode(2, OUTPUT); // Set buzzer - pin 9 as an output
+  pinMode(pin_win, OUTPUT);
+  pinMode(pin_lose, OUTPUT);
+  pinMode(pin_play, OUTPUT);
 
+  digitalWrite(pin_win, LOW);
+  digitalWrite(pin_lose, LOW);
+  digitalWrite(pin_play, LOW);
+
+  pinMode(buttonPin_World, INPUT);
+  pinMode(buttonPin_US, INPUT);
+  pinMode(buttonPin_NY, INPUT);
+  pinMode(buttonPin_GameStart, INPUT);
+  pinMode(buttonPin_Other, INPUT);
 
   //Initialize serial and wait for port to open:
   Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
+  //  while (!Serial) {
+  //    ; // wait for serial port to connect. Needed for native USB port only
+  //  }
 
   // check for the presence of the shield:
   if (WiFi.status() == WL_NO_SHIELD) {
@@ -74,22 +107,21 @@ void setup() {
 
     // wait 10 seconds for connection:
     delay(10000);
+
   }
+
   Serial.println("Connected to wifi");
   printWiFiStatus();
 
   Serial.print("Initializing WiFiUDP library and listening on port ");
   Serial.println(localPort);
   Udp.begin(localPort);
-
-  digitalWrite(2, LOW);
 }
 
 void loop() {
 
   // if there's data available, read a packet
   int packetSize = Udp.parsePacket();
-  Serial.print(packetSize);
   if (packetSize)
   {
     Serial.print("Received packet of size ");
@@ -103,78 +135,200 @@ void loop() {
     // read the packet into packetBufffer
     int len = Udp.read(packetBuffer, 255);
 
-    // Activate the actuators as requested
-    digitalWrite(
-      (int)packetBuffer[0],  // first byte is actuator number
-      (int)packetBuffer[1]);            // second byte is value
+    packetResponse = (int)packetBuffer[0];  // value of server message
+
+    if (packetResponse == 1) {  // This is where the LED On/Off happens
+
+      Serial.println("The article is about World");
+      readyGame = true;
+      digitalWrite(pin_play, HIGH);
+
+    }
+
+    if (packetResponse == 2) {  // This is where the LED On/Off happens
+
+      Serial.println("The article is about US");
+      readyGame = true;
+      digitalWrite(pin_play, HIGH);
+
+    }
+
+    if (packetResponse == 3) {  // This is where the LED On/Off happens
+
+      Serial.println("The article is about opinion");
+      readyGame = true;
+      digitalWrite(pin_play, HIGH);
+
+    }
+
+    if (packetResponse == 4) {  // This is where the LED On/Off happens
+
+      Serial.println("Reset game!!!!");
+      winCondition = false;
+      readyGame = false;
+      GameStart = false;
+
+      digitalWrite(pin_win, LOW);
+      digitalWrite(pin_lose, LOW);
+      digitalWrite(pin_play, LOW);
+
+    }
+
+    if (packetResponse == 5) {  // This is where the LED On/Off happens
+
+      Serial.println("The article is about other stuff");
+      readyGame = true;
+      digitalWrite(pin_play, HIGH);
+
+    }
+
   }
 
+
   // IP address of the receiving device
-  //  IPAddress receivingDeviceAddress(192, 168, 1, 21);
-  IPAddress receivingDeviceAddress(192, 168, 1, 11);
+  IPAddress receivingDeviceAddress(10, 225, 161, 132);
   unsigned int receivingDevicePort = 2390;
 
-  long duration, distance;
-  digitalWrite(trigPin, LOW);  // Added this line
-  delayMicroseconds(2); // Added this line
-  digitalWrite(trigPin, HIGH);
-  //  delayMicroseconds(1000); - Removed this line
-  delayMicroseconds(10); // Added this line
-  digitalWrite(trigPin, LOW);
-  duration = pulseIn(echoPin, HIGH);
-  distance = (duration / 2) / 29.1;
-  if (distance < 4 && ultraState == 1) {  // This is where the LED On/Off happens
+  buttonState_GameStart = digitalRead(buttonPin_GameStart);
 
-    ultraState = 2;
-    digitalWrite(led, HIGH); // When the Red condition is met, the Green LED should turn off
-    digitalWrite(led2, LOW);
+  if (buttonState_GameStart == 1 && GameStart == false) {
 
+    Serial.println("Starting Game");
+    GameStart = true;
 
-    Serial.println("CLOSE ENOUGH!");
     Udp.beginPacket(receivingDeviceAddress, receivingDevicePort);
-    Udp.write("hello");
+    Udp.write(1);
     Udp.endPacket();
   }
 
-  else {
-    digitalWrite(led, LOW);
-    digitalWrite(led2, HIGH);
-    ultraState = 1;
+  buttonState_World = digitalRead(buttonPin_World);
+  buttonState_US = digitalRead(buttonPin_US);
+  buttonState_Other = digitalRead(buttonPin_Other);
+  buttonState_NY = digitalRead(buttonPin_NY);
+
+  if (buttonState_World == HIGH && readyGame == true && winCondition == false) {  // This is where the LED On/Off happens
+
+    if (packetResponse == 1) {
+      digitalWrite(pin_play, LOW);
+      Serial.println("YOU GOT IT!");
+      winCondition = true;
+      digitalWrite(pin_win, HIGH);
+    }
+
+    if (packetResponse != 1) {
+      digitalWrite(pin_play, LOW);
+      Serial.println("YOU LOST IT!");
+      winCondition = true;
+      digitalWrite(pin_lose, HIGH);
+    }
+
+    readyGame = false;
+
+
+    Serial.println("Telling server about your result");
+    Udp.beginPacket(receivingDeviceAddress, receivingDevicePort);
+    Udp.write(2);
+    Udp.endPacket();
+    winCondition = false;
   }
 
-  if (distance >= 200 || distance <= 0) {
-    Serial.println("Out of range");
+  if (buttonState_US == HIGH && readyGame == true && winCondition == false) {  // This is where the LED On/Off happens
+
+    if (packetResponse == 2) {
+      digitalWrite(pin_play, LOW);
+      Serial.println("YOU GOT IT!");
+      winCondition = true;
+      digitalWrite(pin_win, HIGH);
+    }
+
+    if (packetResponse != 2) {
+      digitalWrite(pin_play, LOW);
+      Serial.println("YOU LOST IT!");
+      winCondition = true;
+      digitalWrite(pin_lose, HIGH);
+    }
+
+    readyGame = false;
+
+    Serial.println("Telling server about your result");
+    Udp.beginPacket(receivingDeviceAddress, receivingDevicePort);
+    Udp.write(2);
+    Udp.endPacket();
+    winCondition = false;
+
   }
-  else {
-    Serial.print(distance);
-    Serial.println(" cm");
+
+  if (buttonState_NY == HIGH && readyGame == true && winCondition == false) {  // This is where the LED On/Off happens
+
+    Serial.println("Reached here at least");
+
+    if (packetResponse == 3) {
+      digitalWrite(pin_play, LOW);
+      Serial.println("YOU GOT IT!");
+      winCondition = true;
+      digitalWrite(pin_win, HIGH);
+    }
+    if (packetResponse != 3) {
+      digitalWrite(pin_play, LOW);
+      Serial.println("YOU LOST IT!");
+      winCondition = true;
+      digitalWrite(pin_lose, HIGH);
+    }
+
+    readyGame = false;
+
+    Serial.println("Telling server about your result");
+    Udp.beginPacket(receivingDeviceAddress, receivingDevicePort);
+    Udp.write(2);
+    Udp.endPacket();
+    winCondition = false;
   }
-  delay(500);
-  // once we send a packet to the server, it might
-  // respond, so read it
 
-  
-//
-//    digitalWrite(2, HIGH); // Send 1KHz sound signal...
-//  delay(1000);        // ...for 1 sec
-//  digitalWrite(2, LOW);    // Stop sound...
-//  delay(1000);        // ...for 1sec
 
-}
+  //  if (buttonState_Other == HIGH && readyGame == true && winCondition == false) {  // This is where the LED On/Off happens
+  //
+  //    if (packetResponse == 4) {
+  //      Serial.println("YOU GOT IT!");
+  //      winCondition = true;
+  //    }
+  //    if (packetResponse != 4) {
+  //      Serial.println("YOU LOST IT!");
+  //      winCondition = true;
+  //    }
+  //
+  //    readyGame = false;
+  //
+  //    Serial.println("Telling server about your result");
+  //    Udp.beginPacket(receivingDeviceAddress, receivingDevicePort);
+  //    Udp.write(2);
+  //    Udp.endPacket();
+  //    winCondition = false;
+  //  }
 
-void printWiFiStatus() {
-  // print the SSID of the network you're attached to:
-  Serial.print("SSID: ");
-  Serial.println(WiFi.SSID());
 
-  // print your WiFi shield's IP address:
-  IPAddress ip = WiFi.localIP();
-  Serial.print("My IP Address: ");
-  Serial.println(ip);
+  if (buttonState_Other == HIGH && readyGame == true && winCondition == false) {  // This is where the LED On/Off happens
 
-  // print the received signal strength:
-  long rssi = WiFi.RSSI();
-  Serial.print("signal strength (RSSI):");
-  Serial.print(rssi);
-  Serial.println(" dBm");
+    if (packetResponse == 5) {
+      digitalWrite(pin_play, LOW);
+      Serial.println("YOU GOT IT!");
+      winCondition = true;
+      digitalWrite(pin_win, HIGH);
+    }
+    if (packetResponse != 5) {
+      digitalWrite(pin_play, LOW);
+      Serial.println("YOU LOST IT!");
+      winCondition = true;
+      digitalWrite(pin_lose, HIGH);
+    }
+
+    readyGame = false;
+
+    Serial.println("Telling server about your result");
+    Udp.beginPacket(receivingDeviceAddress, receivingDevicePort);
+    Udp.write(2);
+    Udp.endPacket();
+    winCondition = false;
+
+  }
+
 }
